@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAJkE9r4PUy0GyAOJRxuVYtQAAAAACAAAAAAAQZgAAAAEAACAAAAA4tUJ3fEDtAZ2RqPjAC7XeqmBaE5QEJOutksYKk6biKQAAAAAOgAAAAAIAACAAAAAZODw4wJS0+DS1xAYjnFpPK9g51tEOoaRM3IEl2l1ANoAAAACOYMwOq9Bq+4KhEFJecegyvcsYIRZaoGu5IjTRaI9HFBhHu9qbPgu1WTG+VpJ1/b3QgxbK2IgJcHFzqU5O7tNjEsB6Wg0+6b9c6XwKY+fcUU0SEvX0rbvbUvMKZOW1D2+1Mq+ppjGCYNYrCYbLhKNo5+h3bDwSN19psMuy8tPb/EAAAAA01kWiIusfnTFLbROMrFY6DODmM8x8j9+TPFZCdOaCAtAbOlUMS2e72zSDLI3jydT1yj9wuzoZ5tJ33uetAbSL</EncryptedPassword>
+    <History>True|2023-05-31T10:33:52.2270782Z;True|2023-05-30T20:30:19.2602457+07:00;True|2023-05-30T20:29:34.8803904+07:00;True|2023-05-30T20:24:13.6466080+07:00;True|2023-05-30T20:21:35.1294302+07:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultSQLConnection">
+      <Value>Server=tcp:nearex.database.windows.net,1433%3bInitial Catalog=NearExpiredProduct%3bPersist Security Info=False%3bUser ID=adminSQL%3bPassword=Se1604_swd392%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

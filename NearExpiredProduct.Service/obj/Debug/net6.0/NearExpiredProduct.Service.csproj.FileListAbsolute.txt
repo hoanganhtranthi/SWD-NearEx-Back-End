@@ -1,0 +1,17 @@
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\bin\Debug\net6.0\NearExpiredProduct.Service.deps.json
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\bin\Debug\net6.0\NearExpiredProduct.Service.runtimeconfig.json
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\bin\Debug\net6.0\NearExpiredProduct.Service.dll
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\bin\Debug\net6.0\NearExpiredProduct.Service.pdb
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\bin\Debug\net6.0\NearExpiredProduct.Data.dll
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\bin\Debug\net6.0\NearExpiredProduct.Data.pdb
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\obj\Debug\net6.0\NearExpiredProduct.Service.csproj.AssemblyReference.cache
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\obj\Debug\net6.0\NearExpiredProduct.Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\obj\Debug\net6.0\NearExpiredProduct.Service.AssemblyInfoInputs.cache
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\obj\Debug\net6.0\NearExpiredProduct.Service.AssemblyInfo.cs
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\obj\Debug\net6.0\NearExpiredProduct.Service.csproj.CoreCompileInputs.cache
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\obj\Debug\net6.0\NearExpiredProduct.Service.csproj.CopyComplete
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\obj\Debug\net6.0\NearExpiredProduct.Service.dll
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\obj\Debug\net6.0\refint\NearExpiredProduct.Service.dll
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\obj\Debug\net6.0\NearExpiredProduct.Service.pdb
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\obj\Debug\net6.0\NearExpiredProduct.Service.genruntimeconfig.cache
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Service\obj\Debug\net6.0\ref\NearExpiredProduct.Service.dll

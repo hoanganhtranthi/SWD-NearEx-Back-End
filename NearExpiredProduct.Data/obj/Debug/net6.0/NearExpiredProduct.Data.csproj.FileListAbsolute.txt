@@ -1,0 +1,14 @@
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\bin\Debug\net6.0\NearExpiredProduct.Data.deps.json
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\bin\Debug\net6.0\NearExpiredProduct.Data.runtimeconfig.json
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\bin\Debug\net6.0\NearExpiredProduct.Data.dll
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\bin\Debug\net6.0\NearExpiredProduct.Data.pdb
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\obj\Debug\net6.0\NearExpiredProduct.Data.csproj.AssemblyReference.cache
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\obj\Debug\net6.0\NearExpiredProduct.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\obj\Debug\net6.0\NearExpiredProduct.Data.AssemblyInfoInputs.cache
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\obj\Debug\net6.0\NearExpiredProduct.Data.AssemblyInfo.cs
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\obj\Debug\net6.0\NearExpiredProduct.Data.csproj.CoreCompileInputs.cache
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\obj\Debug\net6.0\NearExpiredProduct.Data.dll
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\obj\Debug\net6.0\refint\NearExpiredProduct.Data.dll
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\obj\Debug\net6.0\NearExpiredProduct.Data.pdb
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\obj\Debug\net6.0\NearExpiredProduct.Data.genruntimeconfig.cache
+D:\PRN211\Code\SWD392_Near-Expired-Product\NearExpiredProduct.Data\obj\Debug\net6.0\ref\NearExpiredProduct.Data.dll
