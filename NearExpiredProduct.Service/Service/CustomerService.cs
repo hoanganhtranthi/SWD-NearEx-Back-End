@@ -37,7 +37,6 @@ namespace NearExpiredProduct.Service.Service
         Task<CustomerResponse> ResetPassword(bool forgotPass, ResetPasswordRequest resetPassword, string email);
         Task<CustomerResponse> Login(LoginRequest request);
         Task<CustomerResponse> Registeration(CustomerRequest request);
-        Task<CustomerResponse> GetCustomerByEmail(string email);
         Task<CustomerResponse> GetCustomerById(int id);
         Task<CustomerResponse> UpdateCustomer(int customerId, CustomerRequest request);
     }
@@ -90,23 +89,7 @@ namespace NearExpiredProduct.Service.Service
                 return true;
             }
             return false;
-        }
-        public Task<CustomerResponse> GetCustomerByEmail(string email)
-        {
-            try
-            {
-                Customer customer = null;
-                customer = _unitOfWork.Repository<Customer>().GetAll()
-                    .Where(x => x.Email.Contains(email)).FirstOrDefault();
-
-                return Task.FromResult(_mapper.Map<Customer, CustomerResponse>(customer));
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-
+        }      
         public async Task<CustomerResponse> GetCustomerById(int id)
         {
             try

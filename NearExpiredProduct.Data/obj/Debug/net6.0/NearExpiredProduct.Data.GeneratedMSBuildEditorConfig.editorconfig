@@ -7,4 +7,4 @@ build_property.InvariantGlobalization =
 build_property.PlatformNeutralAssembly = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = NearExpiredProduct.Data
-build_property.ProjectDir = D:\NearEx\SWD392-Near-Expired-Product\Back-end\SWD392_Near-Expired-Product\NearExpiredProduct.Data\
+build_property.ProjectDir = D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Data\

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj": {}
+    "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj": {}
   },
   "projects": {
-    "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj": {
+    "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj",
+        "projectUniqueName": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj",
         "projectName": "NearExpiredProduct.API",
-        "projectPath": "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj",
+        "projectPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj",
         "packagesPath": "C:\\Users\\Hoang Anh\\.nuget\\packages\\",
-        "outputPath": "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.API\\obj\\",
+        "outputPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj": {
-                "projectPath": "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj"
+              "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj": {
+                "projectPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj"
               }
             }
           }
@@ -56,9 +56,17 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
+            "Firebase.Auth": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
             "FirebaseAdmin": {
               "target": "Package",
               "version": "[2.3.0, )"
+            },
+            "FirebaseStorage.net": {
+              "target": "Package",
+              "version": "[1.0.3, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -128,14 +136,14 @@
         }
       }
     },
-    "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.Data\\NearExpiredProduct.Data.csproj": {
+    "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Data\\NearExpiredProduct.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.Data\\NearExpiredProduct.Data.csproj",
+        "projectUniqueName": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Data\\NearExpiredProduct.Data.csproj",
         "projectName": "NearExpiredProduct.Data",
-        "projectPath": "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.Data\\NearExpiredProduct.Data.csproj",
+        "projectPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Data\\NearExpiredProduct.Data.csproj",
         "packagesPath": "C:\\Users\\Hoang Anh\\.nuget\\packages\\",
-        "outputPath": "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.Data\\obj\\",
+        "outputPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -176,9 +184,17 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
+            "Firebase.Auth": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
             "FirebaseAdmin": {
               "target": "Package",
               "version": "[2.3.0, )"
+            },
+            "FirebaseStorage.net": {
+              "target": "Package",
+              "version": "[1.0.3, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -237,14 +253,14 @@
         }
       }
     },
-    "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj": {
+    "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj",
+        "projectUniqueName": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj",
         "projectName": "NearExpiredProduct.Service",
-        "projectPath": "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj",
+        "projectPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj",
         "packagesPath": "C:\\Users\\Hoang Anh\\.nuget\\packages\\",
-        "outputPath": "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.Service\\obj\\",
+        "outputPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -265,8 +281,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.Data\\NearExpiredProduct.Data.csproj": {
-                "projectPath": "D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct.Data\\NearExpiredProduct.Data.csproj"
+              "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Data\\NearExpiredProduct.Data.csproj": {
+                "projectPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Data\\NearExpiredProduct.Data.csproj"
               }
             }
           }
@@ -289,9 +305,17 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
+            "Firebase.Auth": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
             "FirebaseAdmin": {
               "target": "Package",
               "version": "[2.3.0, )"
+            },
+            "FirebaseStorage.net": {
+              "target": "Package",
+              "version": "[1.0.3, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",

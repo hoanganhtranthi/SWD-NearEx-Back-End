@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="IIS Web Application Name" description="" value="NearEx" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\NearEx\\SWD392-Near-Expired-Product\\Back-end\\SWD392_Near-Expired-Product\\NearExpiredProduct\.API\\obj\\Release\\net6\.0\\PubTmp\\Out\\$" />
+  <parameter name="IIS Web Application Name" description="" value="Swd-NearEx" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct\.API\\obj\\Release\\net6\.0\\PubTmp\\Out\\$" />
   </parameter>
 </parameters>
