@@ -32,14 +32,6 @@ namespace NearExpiredProduct.API.Controllers
             return Ok(rs);
         }
 
-        [Authorize(Roles = "admin")]
-        [HttpGet("getCustomerByEmail")]
-        public async Task<ActionResult<CustomerResponse>> GetCustomerByEmail(string email)
-        {
-            var rs = await _userService.GetCustomerByEmail(email);
-            return Ok(rs);
-        }
-
         [Authorize(Roles = "customer")]
         [HttpPut("{id:int}")]
         public async Task<ActionResult<CustomerResponse>> UpdateCustomer([FromBody] CustomerRequest userRequest, int id)
