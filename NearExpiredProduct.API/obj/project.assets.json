@@ -7969,23 +7969,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Hoang Anh\\.nuget\\packages\\": {},
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj",
+      "projectUniqueName": "C:\\Users\\ADMIN\\Documents\\GitHub\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj",
       "projectName": "NearExpiredProduct.API",
-      "projectPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj",
-      "packagesPath": "C:\\Users\\Hoang Anh\\.nuget\\packages\\",
-      "outputPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\obj\\",
+      "projectPath": "C:\\Users\\ADMIN\\Documents\\GitHub\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ADMIN\\Documents\\GitHub\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Hoang Anh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -8000,8 +8000,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj": {
-              "projectPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj"
+            "C:\\Users\\ADMIN\\Documents\\GitHub\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj": {
+              "projectPath": "C:\\Users\\ADMIN\\Documents\\GitHub\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj"
             }
           }
         }
