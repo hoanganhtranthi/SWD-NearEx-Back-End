@@ -13,11 +13,12 @@ namespace NearExpiredProduct.Service.DTO.Response
         [Key]
         public int Id { get; set; }
         [StringAttribute]
-        public string StoreName { get; set; } = null!;
+        public string? StoreName { get; set; }
         [StringAttribute]
-        public string Phone { get; set; } = null!;
+        public string? Phone { get; set; }
         [StringAttribute]
         public string? Address { get; set; }
+        [StringAttribute]
         public string? Logo { get; set; }
         public string Token { get; set; }
     }

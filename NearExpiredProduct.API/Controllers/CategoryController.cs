@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NearExpiredProduct.Service.DTO.Request;
 using NearExpiredProduct.Service.DTO.Response;
 using NearExpiredProduct.Service.Service;
+using System.Data;
 
 namespace NearExpiredProduct.API.Controllers
 {
@@ -9,8 +11,8 @@ namespace NearExpiredProduct.API.Controllers
     [ApiController]
     public class CategoryController : Controller
     {
-        private readonly CategoryService _categoryService;
-        public CategoryController(CategoryService categoryService)
+        private readonly ICategoryService _categoryService;
+        public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
@@ -29,13 +31,6 @@ namespace NearExpiredProduct.API.Controllers
             return Ok(rs);
         }
 
-        [HttpGet("getCategoryByName")]
-        public async Task<ActionResult<CategoryResponse>> GetCategoryByName(string name)
-        {
-            var rs = await _categoryService.GetCategoryByName(name);
-            return Ok(rs);
-        }
-
         [HttpPut("{id:int}")]
         public async Task<ActionResult<CategoryResponse>> UpdateCategory([FromBody] CategoryRequest categoryRequest, int id)
         {
@@ -51,6 +46,5 @@ namespace NearExpiredProduct.API.Controllers
             if (rs == null) return NotFound();
             return Ok(rs);
         }
-
     }
 }

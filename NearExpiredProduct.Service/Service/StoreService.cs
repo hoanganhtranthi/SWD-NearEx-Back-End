@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using NearExpiredProduct.Data.Entity;
@@ -26,6 +27,7 @@ namespace NearExpiredProduct.Service.Service
         Task<PagedResults<StoreResponse>> GetStores(StoreRequest request, PagingRequest paging);
         Task<StoreResponse> UpdateStore(int storeId, StoreRequest request);
         Task<StoreResponse> DeleteStore(int id);
+        Task<StoreResponse> GetStoreById(int id);
         Task<StoreResponse> Login(LoginRequest request);
     }
     public class StoreService : IStoreService
@@ -33,6 +35,13 @@ namespace NearExpiredProduct.Service.Service
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
+
+        public StoreService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration config)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+            _config = config;
+        }
 
         private string GenerateJwtToken(Store store)
         {
@@ -47,7 +56,6 @@ namespace NearExpiredProduct.Service.Service
                     new Claim(ClaimTypes.NameIdentifier, store.Id.ToString()),
                     new Claim(ClaimTypes.Role, role),
                     new Claim(ClaimTypes.Name, store.StoreName),
-                    new Claim(ClaimTypes.Email, store.StoreAccount),
                     new Claim("FcmToken" , store.Fcmtoken ?? ""),
                     new Claim("ImageUrl", store.Logo ?? ""),
                     new Claim(ClaimTypes.MobilePhone , store.Phone),
@@ -66,14 +74,19 @@ namespace NearExpiredProduct.Service.Service
             try
             {
                 var store = _unitOfWork.Repository<Store>().GetAll()
-                   .FirstOrDefault(s => s.StoreAccount.Equals(request.Email.Trim()));
+                   .FirstOrDefault(s => s.Phone.Equals(request.Phone.Trim()));
 
                 if (store == null) throw new CrudException(HttpStatusCode.BadRequest, "Store Not Found", "");
+
                 if (!store.Password.Equals(request.Password.Trim()))
                     throw new CrudException(HttpStatusCode.BadRequest, "Password is incorrect", "");
                 var s = _mapper.Map<Store, StoreResponse>(store);
                 s.Token = GenerateJwtToken(store);
                 return Task.FromResult(_mapper.Map<StoreResponse>(s));
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -98,22 +111,17 @@ namespace NearExpiredProduct.Service.Service
             {
                 throw new CrudException(HttpStatusCode.BadRequest, "Get store list error!!!!!", ex.Message);
             }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
         }
 
         public async Task<StoreResponse> UpdateStore(int storeId, StoreRequest request)
         {
             try
             {
-                Store store = null;
-                store = _unitOfWork.Repository<Store>().Find(s => s.Id == storeId);
+               Store store = _unitOfWork.Repository<Store>().Find(s => s.Id == storeId);
 
                 if (store == null)
                 {
-                    throw new CrudException(HttpStatusCode.NotFound, "Not found store with id", storeId.ToString());
+                    throw new CrudException(HttpStatusCode.NotFound, "Not found store with id", "");
                 }
 
                 _mapper.Map<StoreRequest, Store>(request, store);
@@ -123,11 +131,11 @@ namespace NearExpiredProduct.Service.Service
             }
             catch (CrudException ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Update store error!!!!!", ex.Message);
+                throw ex;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Update store error!!!!!", ex.Message);
             }
         }
 
@@ -136,17 +144,49 @@ namespace NearExpiredProduct.Service.Service
             var store = await _unitOfWork.Repository<Store>().GetAsync(s => s.Id == id);
             try
             {
-                if (id <= 0)
+                if (store == null)
                 {
-                    throw new Exception();
+                    throw new CrudException(HttpStatusCode.NotFound, "Not found store with id", "");
                 }
                 _unitOfWork.Repository<Store>().Delete(store);
                 await _unitOfWork.CommitAsync();
                 return _mapper.Map<Store, StoreResponse>(store);
             }
+            catch (CrudException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw new CrudException(HttpStatusCode.BadRequest, "Delete Store Error!!!", ex.InnerException?.Message);
+            }
+        }
+
+        public async Task<StoreResponse> GetStoreById(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    throw new CrudException(HttpStatusCode.BadRequest, "Id Store Invalid", "");
+                }
+                var response = await _unitOfWork.Repository<Store>().GetAsync(c => c.Id == id);
+
+                if (response == null)
+                {
+                    throw new CrudException(HttpStatusCode.NotFound, "Not found store with id", response.Id.ToString());
+                }
+
+                return _mapper.Map<StoreResponse>(response);
+
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Get Store By ID Error!!!", ex.InnerException?.Message);
             }
         }
     }

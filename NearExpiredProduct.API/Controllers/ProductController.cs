@@ -29,13 +29,6 @@ namespace NearExpiredProduct.API.Controllers
             return Ok(rs);
         }
 
-        [HttpGet("getProductByName")]
-        public async Task<ActionResult<ProductResponse>> GetProductByName(string name)
-        {
-            var rs = await _productService.GetProductByName(name);
-            return Ok(rs);
-        }
-
         [HttpPut("{id:int}")]
         public async Task<ActionResult<ProductResponse>> UpdateProduct([FromBody] ProductRequest productRequest, int id)
         {
@@ -51,7 +44,12 @@ namespace NearExpiredProduct.API.Controllers
             if (rs == null) return NotFound();
             return Ok(rs);
         }
-
+        [HttpPost()]
+        public async Task<ActionResult<CustomerResponse>> CreateProduct([FromBody] ProductRequest model)
+        {
+            var rs = await _productService.CreateProduct(model);
+            return Ok(rs);
+        }
 
     }
 }

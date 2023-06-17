@@ -13,24 +13,22 @@ namespace NearExpiredProduct.Service.DTO.Response
     {
         [Key]
         public int Id { get; set; }
-        [Key]
-        public decimal Price { get; set; }
+        [IntAttribute]
+        public decimal? Price { get; set; }=null;
         [StringAttribute]
         public string? Origin { get; set; }
         public string ProductImg { get; set; } = null!;
         [StringAttribute]
         public string ProductName { get; set; } = null!;
+        [StringAttribute]
         public string? Description { get; set; }
-        public int UnitInStock { get; set; }
-        [DateRangeAttribute]
-        public DateTime? Expiry { get; set; }
-        [Key]
-        public int CateId { get; set; }
-        [Key]
-        public int StoreId { get; set; }
-
-        public virtual Category Cate { get; set; } = null!;
-        public virtual Store Store { get; set; } = null!;
-        public virtual ICollection<Campaign> Campaigns { get; set; }
+        [StringAttribute]
+        public string Unit { get; set; } = null!;
+        [IntAttribute]
+        public int? NetWeight { get; set; }=null!;
+        [IntAttribute]
+        public int? CategoryId { get; set; }=null!;
+        [IntAttribute]
+        public int? StoreId { get; set; } = null!;
     }
 }

@@ -159,3 +159,5 @@ D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Debug\net6.0\refint\Nea
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Debug\net6.0\NearExpiredProduct.API.pdb
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Debug\net6.0\NearExpiredProduct.API.genruntimeconfig.cache
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Debug\net6.0\ref\NearExpiredProduct.API.dll
+D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Debug\net6.0\Twilio.dll

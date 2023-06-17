@@ -37,6 +37,17 @@ namespace NearExpiredProduct.API.Controllers
             if (rs == null) return NotFound();
             return Ok(rs);
         }
-
+        [HttpPost("login")]
+        public async Task<ActionResult<CustomerResponse>> Login([FromBody] LoginRequest model)
+        {
+            var rs = await _storeService.Login(model);
+            return Ok(rs);
+        }
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<StoreResponse>> GetStore(int id)
+        {
+            var rs = await _storeService.GetStoreById(id);
+            return Ok(rs);
+        }
     }
 }

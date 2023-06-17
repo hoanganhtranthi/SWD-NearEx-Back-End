@@ -7,18 +7,19 @@ namespace NearExpiredProduct.Data.Entity
     {
         public OrderOfCustomer()
         {
-            Campaigns = new HashSet<Campaign>();
+            Payments = new HashSet<Payment>();
         }
 
         public int Id { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime? ShippedDate { get; set; }
         public int Status { get; set; }
-        public decimal TotalPrice { get; set; }
+        public int Quantity { get; set; }
+        public int? CampaignId { get; set; }
         public int? CustomerId { get; set; }
-        public byte[]? PaymentMethod { get; set; }
 
+        public virtual Campaign? Campaign { get; set; }
         public virtual Customer? Customer { get; set; }
-        public virtual ICollection<Campaign> Campaigns { get; set; }
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

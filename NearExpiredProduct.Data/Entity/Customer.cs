@@ -12,11 +12,11 @@ namespace NearExpiredProduct.Data.Entity
 
         public int Id { get; set; }
         public string Email { get; set; } = null!;
-        public string CustomerPassword { get; set; } = null!;
+        public string Password { get; set; } = null!;
         public string UserName { get; set; } = null!;
         public string Phone { get; set; } = null!;
         public string? Gender { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public string? Address { get; set; }
         public string? Avatar { get; set; }
         public string? Fcmtoken { get; set; }

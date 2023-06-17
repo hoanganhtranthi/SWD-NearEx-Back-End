@@ -14,7 +14,19 @@ namespace BusinessTier.Mapper
         public Mapping() {
             CreateMap<Customer, CustomerResponse>().ReverseMap();
             CreateMap<Customer, CustomerRequest>().ReverseMap();
+            
             CreateMap<CustomerResponse, CustomerRequest>().ReverseMap();
+            CreateMap<Product, ProductRequest>().ReverseMap();
+            CreateMap<Product, ProductResponse>().ReverseMap();
+            CreateMap<ProductRequest, ProductResponse>().ReverseMap();
+
+            CreateMap<Category, CategoryRequest>().ReverseMap();
+            CreateMap<Category, CategoryResponse>().ReverseMap();
+            CreateMap<CategoryRequest, CategoryResponse>().ReverseMap();
+
+            CreateMap<Store, StoreRequest>().ReverseMap();
+            CreateMap<Store, StoreResponse>().ReverseMap();
+            CreateMap<StoreRequest, StoreResponse>().ReverseMap();
         }
 
     }
