@@ -14,8 +14,6 @@ namespace NearExpiredProduct.Service.DTO.Response
         [Key]
         public int Id { get; set; }
         [StringAttribute]
-        public string CateName { get; set; } = null!;
-
-        public virtual ICollection<Product> Products { get; set; }
+        public string CategoryName { get; set; } = null!;
     }
 }

@@ -8,11 +8,9 @@ namespace NearExpiredProduct.Service.DTO.Request
 {
     public class StoreRequest
     {
-        public string StoreName { get; set; } = null!;
+        public string? StoreName { get; set; }
         public string? Address { get; set; }
-        public string Phone { get; set; } = null!;
-        public string StoreAccount { get; set; } = null!;
-        public byte[] Password { get; set; } = null!;
+        public string? Phone { get; set; }
         public string? Logo { get; set; }
     }
 }

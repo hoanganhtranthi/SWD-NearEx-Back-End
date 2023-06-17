@@ -3,6 +3,7 @@ using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NearExpiredProduct.Data.Entity;
@@ -10,6 +11,7 @@ using NearExpiredProduct.Data.UnitOfWork;
 using NearExpiredProduct.Service.ImplService;
 using NearExpiredProduct.Service.Service;
 using System.Text;
+using Twilio.Clients;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,10 +24,16 @@ builder.Services.AddEndpointsApiExplorer();
 //Add scoped
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IStoreService, StoreService>();
+
 builder.Services.AddScoped<IFileStorageService, FirebaseStorageService>();
 builder.Services.AddAutoMapper(typeof(Mapping));
-
-
+builder.Services.AddDbContext<NearExpiredProductContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection"));
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -80,18 +88,18 @@ builder.Services.AddAuthentication(x =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+/*if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-/*app.UseSwagger();
+*/
+app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "NearExpiredProduct.API1");
     options.RoutePrefix = String.Empty;
-});*/
+});
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

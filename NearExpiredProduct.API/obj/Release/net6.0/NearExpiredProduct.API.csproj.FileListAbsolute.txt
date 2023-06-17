@@ -273,6 +273,7 @@ D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\Microsof
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\Microsoft.Extensions.Configuration.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\Microsoft.Extensions.DependencyInjection.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\Microsoft.Identity.Client.dll
+D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\Microsoft.IdentityModel.Abstractions.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\Microsoft.IdentityModel.Logging.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.dll
@@ -295,6 +296,7 @@ D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\System.R
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\System.Security.Permissions.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\System.Windows.Extensions.dll
+D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\Twilio.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\bin\Release\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll

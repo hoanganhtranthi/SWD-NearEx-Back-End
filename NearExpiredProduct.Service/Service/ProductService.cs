@@ -21,8 +21,7 @@ namespace NearExpiredProduct.Service.Service
     {
         Task<PagedResults<ProductResponse>> GetProducts(ProductRequest request, PagingRequest paging);
         Task<ProductResponse> DeleteProduct(int id);
-        //Task<ProductResponse> CreateProduct(ProductRequest request);
-        Task<ProductResponse> GetProductByName(string name);
+        Task<ProductResponse> CreateProduct(ProductRequest request);
         Task<ProductResponse> GetProductById(int id);
         Task<ProductResponse> UpdateProduct(int id, ProductRequest request);
     }
@@ -31,16 +30,14 @@ namespace NearExpiredProduct.Service.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _config;
 
-        public ProductService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration)
+        public ProductService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
-            _config = configuration;
         }
 
-        /* public async Task<ProductResponse> CreateProduct(ProductRequest product)
+         public async Task<ProductResponse> CreateProduct(ProductRequest product)
         {
             try
             {
@@ -48,39 +45,41 @@ namespace NearExpiredProduct.Service.Service
                 {
                     throw new CrudException(HttpStatusCode.BadRequest, "Product Invalid!!!", "");
                 }
-                var listStoreId = _unitOfWork.Repository<Product>().GetAll().Where(a => a.StoreId == product.StoreId);
-                if (listStoreId != null)
-                {
-                    var listName = _unitOfWork.Repository<Product>().GetAll().Where(a => a.ProductName == product.ProductName);
-                    if (listName != null)
-                    {
-                        var list = _unitOfWork.Repository<Product>().GetAll().Where(a => a.== product.ProductName);
-                        _unitOfWork.Repository<Product>().CreateAsync(product);
-                        await _unitOfWork.CommitAsync();
-                        return _mapper.Map<Product, ProductResponse>(p);
-                    }
-                }
 
+                var p = _mapper.Map<Product>(product);
+                _unitOfWork.Repository<Product>().CreateAsync(p);
+                await _unitOfWork.CommitAsync();
+                return _mapper.Map<Product, ProductResponse>(p);
+
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
                 throw new CrudException(HttpStatusCode.BadRequest, "Insert Product Error!!!", ex.InnerException?.Message);
             }
         }
-        */
 
         public async Task<ProductResponse> DeleteProduct(int id)
-        {
-            var product = await _unitOfWork.Repository<Product>().GetAsync(p => p.Id == id);
+        {           
             try
             {
-                if (id <= 0)
+                var product = await _unitOfWork.Repository<Product>().GetAsync(p => p.Id == id);
+
+                if (product == null)
                 {
-                    throw new Exception();
+                    throw new CrudException(HttpStatusCode.NotFound, "Not found product with id", id.ToString());
                 }
+
                 _unitOfWork.Repository<Product>().Delete(product);
                 await _unitOfWork.CommitAsync();
                 return _mapper.Map<Product, ProductResponse>(product);
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -100,10 +99,14 @@ namespace NearExpiredProduct.Service.Service
 
                 if (response == null)
                 {
-                    throw new CrudException(HttpStatusCode.NotFound, "Not found product with id", response.Id.ToString());
+                    throw new CrudException(HttpStatusCode.NotFound, "Not found product with id", "");
                 }
 
                 return _mapper.Map<ProductResponse>(response);
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -111,19 +114,6 @@ namespace NearExpiredProduct.Service.Service
             }
         }
 
-        public Task<ProductResponse> GetProductByName(string name)
-        {
-            try
-            {
-                Product product = null;
-                product = _unitOfWork.Repository<Product>().GetAll().Where(p => p.ProductName == name).FirstOrDefault();
-                return Task.FromResult(_mapper.Map<Product, ProductResponse>(product));
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
 
         public Task<PagedResults<ProductResponse>> GetProducts(ProductRequest request, PagingRequest paging)
         {
@@ -142,18 +132,13 @@ namespace NearExpiredProduct.Service.Service
             {
                 throw new CrudException(HttpStatusCode.BadRequest, "Get product list error!!!!!", ex.Message);
             }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
         }
-
+        
         public async Task<ProductResponse> UpdateProduct(int id, ProductRequest request)
         {
             try
             {
-                Product product = null;
-                product = _unitOfWork.Repository<Product>()
+               Product product = _unitOfWork.Repository<Product>()
                     .Find(p => p.Id == id);
 
                 if (product == null)

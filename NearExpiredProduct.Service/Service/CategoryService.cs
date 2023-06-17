@@ -17,11 +17,10 @@ using System.Threading.Tasks;
 
 namespace NearExpiredProduct.Service.Service
 {
-    interface ICategoryService
+   public interface ICategoryService
     {
         Task<PagedResults<CategoryResponse>> GetCategorys(CategoryRequest request, PagingRequest paging);
         Task<CategoryResponse> DeleteCategory(int id);
-        Task<CategoryResponse> GetCategoryByName(string name);
         Task<CategoryResponse> GetCategoryById(int id);
         Task<CategoryResponse> UpdateCategory(int id, CategoryRequest request);
         Task<CategoryResponse> InsertCategory(CategoryRequest category);
@@ -30,13 +29,11 @@ namespace NearExpiredProduct.Service.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _config;
 
-        public CategoryService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration)
+        public CategoryService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
-            _config = configuration;
         }
 
         public async Task<CategoryResponse> DeleteCategory(int id)
@@ -44,13 +41,18 @@ namespace NearExpiredProduct.Service.Service
             var category = await _unitOfWork.Repository<Category>().GetAsync(c => c.Id == id);
             try
             {
-                if (id <= 0)
+                if (category == null)
                 {
-                    throw new Exception();
+                    throw new CrudException(HttpStatusCode.NotFound, "Not found category with id", "");
                 }
                 _unitOfWork.Repository<Category>().Delete(category);
                 await _unitOfWork.CommitAsync();
                 return _mapper.Map<Category, CategoryResponse>(category);
+
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -74,6 +76,11 @@ namespace NearExpiredProduct.Service.Service
                 }
 
                 return _mapper.Map<CategoryResponse>(response);
+
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -81,19 +88,6 @@ namespace NearExpiredProduct.Service.Service
             }
         }
 
-        public Task<CategoryResponse> GetCategoryByName(string name)
-        {
-            try
-            {
-                Category category = null;
-                category = _unitOfWork.Repository<Category>().GetAll().Where(c => c.CateName == name).FirstOrDefault();
-                return Task.FromResult(_mapper.Map<Category, CategoryResponse>(category));
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
 
         public Task<PagedResults<CategoryResponse>> GetCategorys(CategoryRequest request, PagingRequest paging)
         {
@@ -112,24 +106,31 @@ namespace NearExpiredProduct.Service.Service
             {
                 throw new CrudException(HttpStatusCode.BadRequest, "Get category list error!!!!!", ex.Message);
             }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
         }
 
         public async Task<CategoryResponse> InsertCategory(CategoryRequest category)
         {
             try
             {
+                var cateRequest = await _unitOfWork.Repository<Category>().GetAsync(u => u.CategoryName == category.CategoryName);
                 if (category == null)
                 {
                     throw new CrudException(HttpStatusCode.BadRequest, "Category Invalid!!!", "");
+                }    
+               if (cateRequest != null)
+                {
+                    throw new CrudException(HttpStatusCode.BadRequest, "Category has already insert !!!", "");
                 }
-                var cate = await _unitOfWork.Repository<Category>().GetAsync(c => c.Id == category.Id);
-                _unitOfWork.Repository<Category>().CreateAsync(cate);
+
+                var response = _mapper.Map<CategoryRequest, Category>(category);
+                await _unitOfWork.Repository<Category>().CreateAsync(response);
                 await _unitOfWork.CommitAsync();
-                return _mapper.Map<Category, CategoryResponse>(cate);
+
+                return _mapper.Map<CategoryResponse>(response);
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -141,8 +142,7 @@ namespace NearExpiredProduct.Service.Service
         {
             try
             {
-                Category category = null;
-                category = _unitOfWork.Repository<Category>()
+                Category category = _unitOfWork.Repository<Category>()
                     .Find(c => c.Id == id);
 
                 if (category == null)
@@ -158,11 +158,11 @@ namespace NearExpiredProduct.Service.Service
             }
             catch (CrudException ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Update category error!!!!!", ex.Message);
+                throw ex;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Update category error!!!!!", ex.Message);
             }
         }
     }

@@ -1,42 +1,35 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using NearExpiredProduct.Service.Helpers;
-using FirebaseAdmin.Auth;
-using FirebaseAdmin.Messaging;
 using Google.Apis.Auth;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NearExpiredProduct.Data.Entity;
 using NearExpiredProduct.Data.UnitOfWork;
 using NearExpiredProduct.Service.DTO.Request;
 using NearExpiredProduct.Service.DTO.Response;
 using NearExpiredProduct.Service.Exceptions;
-using NearExpiredProduct.Service.Helpers;
 using NearExpiredProduct.Service.Utilities;
-using NTQ.Sdk.Core.CustomModel;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Linq.Dynamic.Core.Tokenizer;
 using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Security.Principal;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using Twilio;
+using Twilio.Rest.Verify.V2.Service;
 
 namespace NearExpiredProduct.Service.Service
 {
     public interface ICustomerService
     {
         Task<PagedResults<CustomerResponse>> GetCustomers(CustomerRequest request, PagingRequest paging);
-        Task<CustomerResponse> LinkToGoogleAccount(ExternalAuthRequest data);
+        Task<CustomerResponse> LoginByGoogleAccount(ExternalAuthRequest data);
         Task<CustomerResponse> DeleteCustomer(int id);
+        Task<CustomerResponse> GetCustomerByEmail(string email);
+        Task<string> Verification(string phone,string code);
         Task<CustomerResponse> ResetPassword(bool forgotPass, ResetPasswordRequest resetPassword, string email);
         Task<CustomerResponse> Login(LoginRequest request);
-        Task<CustomerResponse> Registeration(CustomerRequest request);
         Task<CustomerResponse> GetCustomerById(int id);
         Task<CustomerResponse> UpdateCustomer(int customerId, CustomerRequest request);
     }
@@ -45,45 +38,102 @@ namespace NearExpiredProduct.Service.Service
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
-
+        private string accountSID, token,serviceID;
         public CustomerService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _config = configuration;
+            accountSID = _config["Twilio:AccountSID"];
+            token = _config["Twilio:AuthToken"];
+            serviceID = _config["Twilio:PathServiceSid"];
         }
-        public async Task<CustomerResponse> Registeration(CustomerRequest request)
+        public static bool CheckVNPhone(string phoneNumber)
+        {
+            string strRegex = @"(^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$)";
+            Regex re = new Regex(strRegex);
+            if (re.IsMatch(phoneNumber))
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+     
+        public async Task<string> Verification(string phone,string code)
         {
             try
             {
-                var isUnique = IsUniqueUser(request.Email);
-                if (!isUnique)
+                if (!IsUniqueUser(phone))
                 {
                     throw new CrudException(HttpStatusCode.BadRequest, "User has already register", "");
                 }
-                if (request == null)
-                {
-                    throw new CrudException(HttpStatusCode.BadRequest, "User information is invalid", "");
-                }
-                var customer = _mapper.Map<CustomerRequest, Customer>(request);
-                await _unitOfWork.Repository<Customer>().CreateAsync(customer);
-                await _unitOfWork.CommitAsync();
 
-                return _mapper.Map<Customer, CustomerResponse>(customer);
+                #region checkPhone
+                var check = CheckVNPhone(phone);
+                if (check)
+                {
+                    if (!phone.StartsWith("+84"))
+                    {
+                        phone = phone.TrimStart(new char[] { '0' });
+                        phone = "+84" + phone;
+                    }
+                }
+                else
+                {
+                    throw new CrudException(HttpStatusCode.BadRequest, "Wrong Phone", phone.ToString());
+                }
+                #endregion
+                TwilioClient.Init(accountSID, token);
+
+                if (code != null)
+                {
+                    var verificationCheck = VerificationCheckResource.Create(
+                    to: phone,
+                    code: code,
+                    pathServiceSid: serviceID
+                );
+
+                    return verificationCheck.Status;
+                }
+                else
+                {
+                    var verification = VerificationResource.Create(
+                        channel: "sms",
+                        to: phone,
+                        pathServiceSid: serviceID
+                );
+                    return verification.Status;
+                }
             }
             catch (CrudException ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Create User Error!!!", ex?.Message);
+                throw ex;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Verification Error!!!", ex.InnerException?.Message);
             }
         }
 
-        public bool IsUniqueUser(string Email)
+            public async Task<CustomerResponse> GetCustomerByEmail(string email)
         {
-            var user = _unitOfWork.Repository<Customer>().Find(u => u.Email == Email);
+            try
+            {
+                Customer customer = null;
+                customer = _unitOfWork.Repository<Customer>().GetAll()
+                    .Where(x => x.Email.Contains(email)).FirstOrDefault();
+
+                return _mapper.Map<Customer, CustomerResponse>(customer);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public bool IsUniqueUser(string Phone)
+        {
+            var user = _unitOfWork.Repository<Customer>().Find(u => u.Phone==Phone);
             if (user == null)
             {
                 return true;
@@ -96,7 +146,7 @@ namespace NearExpiredProduct.Service.Service
             {
                 if (id <= 0)
                 {
-                    throw new CrudException(HttpStatusCode.BadRequest, "Id User Invalid", "");
+                    throw new CrudException(HttpStatusCode.BadRequest, "Id Customer Invalid", "");
                 }
                 var response = await _unitOfWork.Repository<Customer>().GetAsync(u => u.Id == id);
 
@@ -106,6 +156,10 @@ namespace NearExpiredProduct.Service.Service
                 }
 
                 return _mapper.Map<CustomerResponse>(response);
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -130,26 +184,42 @@ namespace NearExpiredProduct.Service.Service
             {
                 throw new CrudException(HttpStatusCode.BadRequest, "Get customer list error!!!!!", ex.Message);
             }
-            catch (Exception e)
+        }
+        public async Task<CustomerResponse> CreateCustomer(CustomerRequest request)
+        {
+            try
             {
-                throw new Exception(e.Message);
+                var customer = _mapper.Map<CustomerRequest, Customer>(request);
+
+                await _unitOfWork.Repository<Customer>().CreateAsync(customer);
+                await _unitOfWork.CommitAsync();
+
+                return _mapper.Map<Customer, CustomerResponse>(customer);
+            }
+            catch (CrudException ex)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Create Product Error!!!", ex?.Message);
             }
         }
-
-        public async Task<CustomerResponse> LinkToGoogleAccount(ExternalAuthRequest data)
+        public async Task<CustomerResponse> LoginByGoogleAccount(ExternalAuthRequest data)
         {
             GoogleJsonWebSignature.ValidationSettings settings = new GoogleJsonWebSignature.ValidationSettings();
             // Change this to your google client ID
             settings.Audience = new List<string>() { "458807280767-qb3n290oka2phviu8rf3c7opdsg00nn4.apps.googleusercontent.com" };
 
             GoogleJsonWebSignature.Payload payload = GoogleJsonWebSignature.ValidateAsync(data.IdToken, settings).Result;
-
-            CustomerResponse newCustomer = new CustomerResponse()
+            var customer = await GetCustomerByEmail(payload.Email);
+            if (customer == null)
             {
-                UserName = payload.Name,
-                Email = payload.Email
-            };
-            return newCustomer;
+                CustomerRequest newCustomer = new CustomerRequest()
+                {
+                    UserName = payload.Name,
+                    Email = payload.Email,
+                    Avatar = payload.Picture
+                };
+                await CreateCustomer(newCustomer);
+            }
+            return customer;
         }
 
         public async Task<CustomerResponse> UpdateCustomer(int customerId, CustomerRequest request)
@@ -173,17 +243,17 @@ namespace NearExpiredProduct.Service.Service
             }
             catch (CrudException ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Update customer error!!!!!", ex.Message);
+                throw ex;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                throw new CrudException(HttpStatusCode.BadRequest, "Update customer error!!!!!", ex.Message);
             }
         }
         private string GenerateJwtToken(Customer customer)
         {
             string role;
-            if (customer.Email.Equals(_config["AdminAccount:Email"]) && customer.CustomerPassword.Equals(_config["AdminAccount:Password"]))
+            if (customer.Email.Equals(_config["AdminAccount:Email"]) && customer.Password.Equals(_config["AdminAccount:Password"]))
                 role = "admin";
             else role = "customer";
 
@@ -214,16 +284,36 @@ namespace NearExpiredProduct.Service.Service
         {
             try
             {
+                #region checkPhone
+                var check = CheckVNPhone(request.Phone);
+                if (check)
+                {
+                    if (!request.Phone.StartsWith("+84"))
+                    {
+                        request.Phone = request.Phone.TrimStart(new char[] { '0' });
+                        request.Phone = "+84" + request.Phone;
+                    }
+                }
+                else
+                {
+                    throw new CrudException(HttpStatusCode.BadRequest, "Wrong Phone", request.Phone.ToString());
+                }
+                #endregion
+
                 var user = _unitOfWork.Repository<Customer>().GetAll()
-                   .FirstOrDefault(u => u.Email.Equals(request.Email.Trim()));
+                   .FirstOrDefault(u => u.Phone.Equals(request.Phone.Trim()));
 
                 if (user == null) throw new CrudException(HttpStatusCode.BadRequest, "User Not Found", "");
-                if (!user.CustomerPassword.Equals(request.Password.Trim()))
+                if (!user.Password.Equals(request.Password.Trim()))
                     throw new CrudException(HttpStatusCode.BadRequest, "Password is incorrect", "");
                 var cus = _mapper.Map<Customer, CustomerResponse>(user);
                 cus.Token = GenerateJwtToken(user);
                 return cus;
                 return _mapper.Map<CustomerResponse>(user);
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -237,13 +327,17 @@ namespace NearExpiredProduct.Service.Service
             var user = await _unitOfWork.Repository<Customer>().GetAsync(u => u.Id == id);
             try
             {
-                if (id <= 0)
+                if(user == null)
                 {
-                    throw new Exception();
+                    throw new CrudException(HttpStatusCode.NotFound, "Not found customer with id", id.ToString());
                 }
                 _unitOfWork.Repository<Customer>().Delete(user);
                 await _unitOfWork.CommitAsync();
                 return _mapper.Map<Customer, CustomerResponse>(user);
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -277,12 +371,16 @@ namespace NearExpiredProduct.Service.Service
                     if (!resetPassword.Password.Equals(resetPassword.ConfirmPassword))
                         throw new CrudException(HttpStatusCode.BadRequest, "Password and confirm password are not match!!!!!", "");
 
-                    user.CustomerPassword = resetPassword.Password;
+                    user.Password = resetPassword.Password;
 
                     await _unitOfWork.Repository<Customer>().Update(user, user.Id);
                     await _unitOfWork.CommitAsync();
                 }
                 return _mapper.Map<CustomerResponse>(user);
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {

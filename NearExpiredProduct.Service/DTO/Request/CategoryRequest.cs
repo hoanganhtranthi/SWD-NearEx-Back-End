@@ -10,9 +10,6 @@ namespace NearExpiredProduct.Service.DTO.Request
 {
     public class CategoryRequest
     {
-        public int Id { get; set; }
-        public string CateName { get; set; } = null!;
-
-        public virtual ICollection<Product> Products { get; set; }
+        public string? CategoryName { get; set; } = null!;
     }
 }

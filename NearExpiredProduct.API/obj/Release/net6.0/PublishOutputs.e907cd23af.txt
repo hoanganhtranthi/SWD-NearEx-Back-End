@@ -28,6 +28,7 @@ D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\O
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\Microsoft.Extensions.Configuration.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\Microsoft.Extensions.DependencyInjection.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\Microsoft.Identity.Client.dll
+D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\Microsoft.IdentityModel.Abstractions.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\Microsoft.IdentityModel.JsonWebTokens.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\Microsoft.IdentityModel.Logging.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\Microsoft.IdentityModel.Protocols.dll
@@ -50,6 +51,7 @@ D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\O
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\System.Security.Cryptography.ProtectedData.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\System.Security.Permissions.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\System.Windows.Extensions.dll
+D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\Twilio.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.API\obj\Release\net6.0\PubTmp\Out\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll

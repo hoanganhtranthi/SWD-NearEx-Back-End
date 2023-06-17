@@ -11,7 +11,7 @@ namespace NearExpiredProduct.Data.Entity
         }
 
         public int Id { get; set; }
-        public string CateName { get; set; } = null!;
+        public string CategoryName { get; set; } = null!;
 
         public virtual ICollection<Product> Products { get; set; }
     }

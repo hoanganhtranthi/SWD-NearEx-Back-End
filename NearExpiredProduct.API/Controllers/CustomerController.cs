@@ -41,7 +41,7 @@ namespace NearExpiredProduct.API.Controllers
             return Ok(rs);
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<CustomerResponse>> DeleteCustomer(int id)
         {
@@ -49,10 +49,11 @@ namespace NearExpiredProduct.API.Controllers
             if (rs == null) return NotFound();
             return Ok(rs);
         }
-        [HttpPost("registeration")]
-        public async Task<ActionResult<CustomerResponse>> Register([FromBody] CustomerRequest model)
+        [Authorize(Roles = "customer")]
+        [HttpPost("verification")]
+        public async Task<ActionResult<string>> Verification([FromQuery] string phone, [FromQuery] string? code)
         {
-            var rs = await _userService.Registeration(model);
+            var rs = await _userService.Verification(phone,code);
             return Ok(rs);
         }
         [HttpPost("login")]
@@ -61,6 +62,7 @@ namespace NearExpiredProduct.API.Controllers
             var rs = await _userService.Login(model);
             return Ok(rs);
         }
+        [Authorize(Roles = "customer")]
         [HttpPost("resetPassword")]
         public async Task<ActionResult<CustomerResponse>> ResetPassword([FromQuery] ResetPasswordRequest resetPassword, bool resetPass, [FromQuery] string email)
         {
