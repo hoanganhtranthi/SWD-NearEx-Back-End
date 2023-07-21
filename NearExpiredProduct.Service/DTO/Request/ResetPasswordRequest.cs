@@ -9,8 +9,7 @@ namespace NearExpiredProduct.Service.DTO.Request
 {
     public class ResetPasswordRequest
     {
-        public string? Password { get; set; }
-        public string? ConfirmPassword { get; set; }
-        public string? PasswordResetToken { get; set; }
+        public string? Phone { get; set; }
+        public string? NewPassword { get; set; }
     }
 }

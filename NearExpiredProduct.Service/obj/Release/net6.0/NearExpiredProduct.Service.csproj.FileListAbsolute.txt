@@ -60,6 +60,7 @@ D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Service\obj\Release\net6.0\Near
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Service\obj\Release\net6.0\NearExpiredProduct.Service.AssemblyInfoInputs.cache
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Service\obj\Release\net6.0\NearExpiredProduct.Service.AssemblyInfo.cs
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Service\obj\Release\net6.0\NearExpiredProduct.Service.csproj.CoreCompileInputs.cache
+D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Service\obj\Release\net6.0\EFCoreSqlServerNetTopologySuite.cs
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Service\obj\Release\net6.0\NearExpiredProduct.Service.csproj.CopyComplete
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Service\obj\Release\net6.0\NearExpiredProduct.Service.dll
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Service\obj\Release\net6.0\refint\NearExpiredProduct.Service.dll

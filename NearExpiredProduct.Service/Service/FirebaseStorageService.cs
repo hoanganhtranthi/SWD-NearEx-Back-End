@@ -1,15 +1,23 @@
 ﻿
 using Firebase.Auth;
 using Firebase.Storage;
+using Google.Cloud.Firestore;
+using Google.Cloud.Firestore.V1;
 using Microsoft.Extensions.Configuration;
+using NearExpiredProduct.Service.DTO.Request;
+using NearExpiredProduct.Service.DTO.Response;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Twilio.TwiML.Voice;
+using Stream = System.IO.Stream;
+using Task = System.Threading.Tasks.Task;
 
-namespace NearExpiredProduct.Service.ImplService
+namespace NearExpiredProduct.Service.Service
 {
     public interface IFileStorageService
     {
@@ -54,5 +62,6 @@ namespace NearExpiredProduct.Service.ImplService
                 return null;
             }
         }
+       
     }
 }

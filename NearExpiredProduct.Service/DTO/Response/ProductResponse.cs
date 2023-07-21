@@ -20,15 +20,20 @@ namespace NearExpiredProduct.Service.DTO.Response
         public string ProductImg { get; set; } = null!;
         [StringAttribute]
         public string ProductName { get; set; } = null!;
-        [StringAttribute]
         public string? Description { get; set; }
         [StringAttribute]
         public string Unit { get; set; } = null!;
         [IntAttribute]
-        public int? NetWeight { get; set; }=null!;
+        public double? NetWeight { get; set; }=null!;
         [IntAttribute]
         public int? CategoryId { get; set; }=null!;
         [IntAttribute]
         public int? StoreId { get; set; } = null!;
+        [StringAttribute]
+        public string? Code { get; set; } = null!;
+        [IntAttribute]
+        public int? Status { get; set; }
+        public virtual CategoryResponse Category { get; set; } = null!;
+        public virtual StoreResponse Store { get; set; } = null!;
     }
 }

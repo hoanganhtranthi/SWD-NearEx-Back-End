@@ -30,7 +30,7 @@ namespace NearExpiredProduct.Data.Entity
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=tcp:nearex.database.windows.net,1433;Initial Catalog=NearExpiredProduct;Persist Security Info=False;User ID=adminSQL;Password=Se1604_swd392;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer("Server=tcp:nearex.database.windows.net,1433;Initial Catalog=NearExpiredProduct;Persist Security Info=False;User ID=adminSQL;Password=Se1604_swd392;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;", x => x.UseNetTopologySuite());
             }
         }
 
@@ -51,24 +51,28 @@ namespace NearExpiredProduct.Data.Entity
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.Campaigns)
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__Campaign__Produc__68487DD7");
+                    .HasConstraintName("FK__Campaign__Produc__66603565");
             });
 
             modelBuilder.Entity<CampaignDetail>(entity =>
             {
                 entity.ToTable("CampaignDetail");
 
-                entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.DateApply).HasColumnType("datetime");
+
+                entity.Property(e => e.Discount).HasColumnType("decimal(18, 0)");
 
                 entity.HasOne(d => d.Campaign)
                     .WithMany(p => p.CampaignDetails)
                     .HasForeignKey(d => d.CampaignId)
-                    .HasConstraintName("FK__CampaignD__Campa__6B24EA82");
+                    .HasConstraintName("FK__CampaignD__Campa__693CA210");
             });
 
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.ToTable("Category");
+
+                entity.Property(e => e.CateImg).IsUnicode(false);
 
                 entity.Property(e => e.CategoryName).HasMaxLength(50);
             });
@@ -95,11 +99,11 @@ namespace NearExpiredProduct.Data.Entity
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
+                entity.Property(e => e.GoogleId).IsUnicode(false);
+
                 entity.Property(e => e.Phone)
                     .HasMaxLength(10)
                     .IsUnicode(false);
-
-                entity.Property(e => e.ResetTokenExpires).HasColumnType("datetime");
 
                 entity.Property(e => e.UserName).HasMaxLength(30);
 
@@ -112,24 +116,20 @@ namespace NearExpiredProduct.Data.Entity
 
                 entity.Property(e => e.OrderDate).HasColumnType("datetime");
 
-                entity.Property(e => e.ShippedDate).HasColumnType("datetime");
-
                 entity.HasOne(d => d.Campaign)
                     .WithMany(p => p.OrderOfCustomers)
                     .HasForeignKey(d => d.CampaignId)
-                    .HasConstraintName("FK__OrderOfCu__Campa__6E01572D");
+                    .HasConstraintName("FK__OrderOfCu__Campa__6C190EBB");
 
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.OrderOfCustomers)
                     .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK__OrderOfCu__Custo__6EF57B66");
+                    .HasConstraintName("FK__OrderOfCu__Custo__6D0D32F4");
             });
 
             modelBuilder.Entity<Payment>(entity =>
             {
                 entity.ToTable("Payment");
-
-                entity.Property(e => e.Invoice).IsUnicode(false);
 
                 entity.Property(e => e.Method).HasMaxLength(50);
 
@@ -138,22 +138,18 @@ namespace NearExpiredProduct.Data.Entity
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK__Payment__OrderId__71D1E811");
+                    .HasConstraintName("FK__Payment__OrderId__6FE99F9F");
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product");
 
-                entity.Property(e => e.Description).HasMaxLength(50);
+                entity.Property(e => e.Code).HasMaxLength(10);
 
                 entity.Property(e => e.Origin).HasMaxLength(50);
 
                 entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
-
-                entity.Property(e => e.ProductImg).HasMaxLength(50);
-
-                entity.Property(e => e.ProductName).HasMaxLength(50);
 
                 entity.Property(e => e.Unit).HasMaxLength(20);
 
@@ -161,13 +157,13 @@ namespace NearExpiredProduct.Data.Entity
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Product__Categor__6477ECF3");
+                    .HasConstraintName("FK__Product__Categor__628FA481");
 
                 entity.HasOne(d => d.Store)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.StoreId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Product__StoreId__656C112C");
+                    .HasConstraintName("FK__Product__StoreId__6383C8BA");
             });
 
             modelBuilder.Entity<Store>(entity =>

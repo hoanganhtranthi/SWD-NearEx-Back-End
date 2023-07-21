@@ -12,4 +12,10 @@ namespace NearExpiredProduct.Service.DTO.Request
     {
         public string? CategoryName { get; set; } = null!;
     }
+    public class CreateCategoryRequest
+    {
+        public string? CategoryName { get; set; } = null!;
+        public string? CateImg { get; set; }
+    }
+
 }

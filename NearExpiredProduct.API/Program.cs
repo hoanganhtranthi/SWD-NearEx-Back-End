@@ -1,20 +1,22 @@
-using BusinessTier.Mapper;
+
 using FirebaseAdmin;
+using Google.Apis.Auth.AspNetCore3;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NearExpiredProduct.API.Mapper;
+using NearExpiredProduct.API.Utility;
 using NearExpiredProduct.Data.Entity;
+using NearExpiredProduct.Data.Extensions;
 using NearExpiredProduct.Data.UnitOfWork;
-using NearExpiredProduct.Service.ImplService;
+using NearExpiredProduct.Service.Exceptions;
 using NearExpiredProduct.Service.Service;
+using System.Reflection;
 using System.Text;
-using Twilio.Clients;
-
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -27,12 +29,27 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IStoreService, StoreService>();
-
+builder.Services.AddScoped<ICampaignService, CampaignService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ICacheService, CacheService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IFileStorageService, FirebaseStorageService>();
 builder.Services.AddAutoMapper(typeof(Mapping));
 builder.Services.AddDbContext<NearExpiredProductContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection"));
+});
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("_myAllowSpecificOrigins",
+        builder =>
+        {
+            builder
+            //.WithOrigins(GetDomain())
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        });
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -64,6 +81,9 @@ builder.Services.AddSwaggerGen(options =>
         new List<string>()
         }
     });
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
 });
 //start JWT
 var key = builder.Configuration.GetValue<string>("ApiSetting:Secret");
@@ -93,17 +113,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-/*app.UseSwagger();
-app.UseSwaggerUI(options =>
+else
 {
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "NearExpiredProduct.API1");
-    options.RoutePrefix = String.Empty;
-});*/
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "NearExpiredProduct.API1");
+        options.RoutePrefix = String.Empty;
+    });
+}
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseMiddleware(typeof(GlobalErrorHandlingMiddleware));
+app.UseCors("_myAllowSpecificOrigins");
 app.MapControllers();
 
 app.Run();

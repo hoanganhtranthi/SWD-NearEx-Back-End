@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
-using NearExpiredProduct.Service.ImplService;
+using NearExpiredProduct.Service.Service;
 
 namespace NearExpiredProduct.API.Controllers
 {

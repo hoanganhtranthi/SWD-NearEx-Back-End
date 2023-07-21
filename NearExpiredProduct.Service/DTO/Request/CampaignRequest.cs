@@ -9,19 +9,16 @@ namespace NearExpiredProduct.Service.DTO.Request
 {
     public class CampaignRequest
     {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
         public int? Status { get; set; }
-        public int? Discount { get; set; }
-        public DateTime Exp { get; set; }
+        public DateTime? Exp { get; set; }
         public int? ProductId { get; set; }
-        public virtual ICollection<CampaignDetailRequest> CampaignDetails { get; set; }
-
+        public string ProductName { get; set; } = "";
     }
-    public class CampaignDetailRequest
+    public class UpdateCampaignRequest
     {
-        public decimal? UnitPrice { get; set; }
-        public int? MinQuantity { get; set; }
-        public int? MaxQuantity { get; set; }
+        public DateTime? EndDate { get; set; } = null;
+        public int? Quantity { get; set; }
+        public CreateCampaignDetailRequest? createCampaignDetailRequest { get; set; }
     }
 }

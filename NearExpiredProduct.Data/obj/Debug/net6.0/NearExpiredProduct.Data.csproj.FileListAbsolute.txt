@@ -26,3 +26,4 @@ D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Data\obj\Debug\net6.0\refint\Ne
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Data\obj\Debug\net6.0\NearExpiredProduct.Data.pdb
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Data\obj\Debug\net6.0\NearExpiredProduct.Data.genruntimeconfig.cache
 D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Data\obj\Debug\net6.0\ref\NearExpiredProduct.Data.dll
+D:\NearEx\SWD-NearEx-Back-end\NearExpiredProduct.Data\obj\Debug\net6.0\EFCoreSqlServerNetTopologySuite.cs
