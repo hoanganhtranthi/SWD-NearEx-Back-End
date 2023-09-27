@@ -227,7 +227,6 @@ namespace NearExpiredProduct.Service.Service
                 CreatPasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
                 customer.PasswordHash = passwordHash;
                 customer.PasswordSalt = passwordSalt;
-                customer.Status = 1;
                 await _unitOfWork.Repository<Customer>().CreateAsync(customer);
                 await _unitOfWork.CommitAsync();
 

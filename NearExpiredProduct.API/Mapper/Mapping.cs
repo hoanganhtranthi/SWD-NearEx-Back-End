@@ -27,7 +27,7 @@ namespace NearExpiredProduct.API.Mapper
             CreateMap<Category, CategoryRequest>().ReverseMap();
             CreateMap<Category, CategoryResponse>().ReverseMap();
             CreateMap<CategoryRequest, CategoryResponse>().ReverseMap();
-            CreateMap<CreateCampaginRequest, Category>().ReverseMap();
+            CreateMap<CreateCategoryRequest, Category>().ReverseMap();
 
             CreateMap<Store, StoreRequest>().ReverseMap();
             CreateMap<Store, StoreResponse>().ReverseMap();
