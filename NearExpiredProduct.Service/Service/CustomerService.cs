@@ -214,7 +214,7 @@ namespace NearExpiredProduct.Service.Service
             try
             {
                 var customer = _mapper.Map<CreateCustomerRequest, Customer>(request);
-                var s = _unitOfWork.Repository<Customer>().Find(s => s.Email == request.Email);
+                var s = _unitOfWork.Repository<Customer>().Find(s => s.Phone == request.Phone);
                 if (s != null)
                 {
                     throw new CrudException(HttpStatusCode.BadRequest, "Customer has already !!!", "");
@@ -247,7 +247,7 @@ namespace NearExpiredProduct.Service.Service
                     .Find(c => c.Id == customerId);
 
                 var cus= _unitOfWork.Repository<Customer>()
-                    .GetAll().Where(c => c.Email.Equals(request.Email)).SingleOrDefault();
+                    .GetAll().Where(c => c.Phone.Equals(request.Phone)).SingleOrDefault();
 
                 if (customer == null)
                 {

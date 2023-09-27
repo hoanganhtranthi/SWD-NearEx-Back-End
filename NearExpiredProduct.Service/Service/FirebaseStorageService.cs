@@ -1,8 +1,6 @@
 ﻿
 using Firebase.Auth;
 using Firebase.Storage;
-using Google.Cloud.Firestore;
-using Google.Cloud.Firestore.V1;
 using Microsoft.Extensions.Configuration;
 using NearExpiredProduct.Service.DTO.Request;
 using NearExpiredProduct.Service.DTO.Response;

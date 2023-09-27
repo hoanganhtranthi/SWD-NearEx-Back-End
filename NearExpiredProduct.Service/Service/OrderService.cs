@@ -202,8 +202,10 @@ namespace NearExpiredProduct.Service.Service
                 {
                     throw new CrudException(HttpStatusCode.BadRequest, "Order Invalid!!!", "");
                 }
-
                 var p = _mapper.Map<OrderOfCustomer>(order);
+                var camp = _unitOfWork.Repository<Campaign>().GetAll().Include(a => a.CampaignDetails).Where(a => a.Id == p.CampaignId).SingleOrDefault();
+                var pro = _unitOfWork.Repository<Product>().GetAll().Where(a => a.Id == camp.ProductId).SingleOrDefault();
+                if(order.Quantity > camp.Quantity) throw new CrudException(HttpStatusCode.BadRequest, "Not enough quantity !!!", "");
                 var payment = _mapper.Map<Payment>(order.PaymentRequest);
                 if (payment.Method != "COD") payment.Status = (int)PaymentEnum.Pending;
                 else payment.Status = (int)PaymentEnum.Finish;
@@ -212,8 +214,7 @@ namespace NearExpiredProduct.Service.Service
                await _unitOfWork.Repository<OrderOfCustomer>().CreateAsync(p);
                 await _unitOfWork.CommitAsync();
 
-                var camp =  _unitOfWork.Repository<Campaign>().GetAll().Include(a=>a.CampaignDetails).Where(a => a.Id == p.CampaignId).SingleOrDefault();
-               var pro= _unitOfWork.Repository<Product>().GetAll().Where(a => a.Id == camp.ProductId).SingleOrDefault();
+
                 camp.Quantity =(int)(camp.Quantity - order.Quantity);
                 await _unitOfWork.Repository<Campaign>().Update(camp,camp.Id);
                 await _unitOfWork.CommitAsync();
