@@ -217,11 +217,17 @@ namespace NearExpiredProduct.Service.Service
                 var s = _unitOfWork.Repository<Customer>().Find(s => s.Phone == request.Phone);
                 if (s != null)
                 {
-                    throw new CrudException(HttpStatusCode.BadRequest, "Customer has already !!!", "");
+                    throw new CrudException(HttpStatusCode.BadRequest, "Phone has already !!!", "");
+                }
+                var cus = _unitOfWork.Repository<Customer>().Find(s => s.Email == request.Email);
+                if (cus != null)
+                {
+                    throw new CrudException(HttpStatusCode.BadRequest, "Email has already !!!", "");
                 }
                 CreatPasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
                 customer.PasswordHash = passwordHash;
                 customer.PasswordSalt = passwordSalt;
+                customer.Status = 1;
                 await _unitOfWork.Repository<Customer>().CreateAsync(customer);
                 await _unitOfWork.CommitAsync();
 
@@ -246,19 +252,25 @@ namespace NearExpiredProduct.Service.Service
                 customer = _unitOfWork.Repository<Customer>()
                     .Find(c => c.Id == customerId);
 
-                var cus= _unitOfWork.Repository<Customer>()
+                var cus = _unitOfWork.Repository<Customer>()
                     .GetAll().Where(c => c.Phone.Equals(request.Phone)).SingleOrDefault();
 
+                var rs = _unitOfWork.Repository<Customer>()
+                    .GetAll().Where(c => c.Email.Equals(request.Email)).SingleOrDefault();
                 if (customer == null)
                 {
                     throw new CrudException(HttpStatusCode.NotFound, $"Not found customer with id{customerId.ToString()}", "");
                 }
                 if (cus != null && cus.Id != customerId)
                 {
-                    throw new CrudException(HttpStatusCode.BadRequest, "Customer has already !!!", "");
+                    throw new CrudException(HttpStatusCode.BadRequest, "Phone has already !!!", "");
+                }
+                if (rs != null && rs.Id != customerId)
+                {
+                    throw new CrudException(HttpStatusCode.BadRequest, "Email has already !!!", "");
                 }
                 _mapper.Map<UpdateCustomerRequest, Customer>(request, customer);
-                if(request.OldPassword != null && request.NewPassword != null)
+                if (request.OldPassword != null && request.NewPassword != null)
                 {
                     if (!VerifyPasswordHash(request.OldPassword.Trim(), cus.PasswordHash, cus.PasswordSalt))
                         throw new CrudException(HttpStatusCode.BadRequest, "Old Password is not match", "");
