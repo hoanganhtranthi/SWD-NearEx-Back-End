@@ -144,7 +144,7 @@ namespace NearExpiredProduct.Service.Service
             {
                 Category category = _unitOfWork.Repository<Category>()
                     .Find(c => c.Id == id);
-                var cateRequest = await _unitOfWork.Repository<Category>().GetAsync(u => u.CategoryName == category.CategoryName);
+                var cateRequest = await _unitOfWork.Repository<Category>().GetAsync(u => u.CategoryName == request.CategoryName);
 
                 if (category == null)
                 {
