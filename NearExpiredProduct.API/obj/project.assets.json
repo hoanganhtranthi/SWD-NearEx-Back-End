@@ -8962,11 +8962,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj",
+      "projectUniqueName": "D:\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj",
       "projectName": "NearExpiredProduct.API",
-      "projectPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj",
+      "projectPath": "D:\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\NearExpiredProduct.API.csproj",
       "packagesPath": "C:\\Users\\Hoang Anh\\.nuget\\packages\\",
-      "outputPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\obj\\",
+      "outputPath": "D:\\SWD-NearEx-Back-end\\NearExpiredProduct.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -8987,8 +8987,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj": {
-              "projectPath": "D:\\NearEx\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj"
+            "D:\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj": {
+              "projectPath": "D:\\SWD-NearEx-Back-end\\NearExpiredProduct.Service\\NearExpiredProduct.Service.csproj"
             }
           }
         }

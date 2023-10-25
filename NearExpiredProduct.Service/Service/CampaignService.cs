@@ -22,6 +22,7 @@ using static Google.Apis.Requests.BatchRequest;
 using System.Net.NetworkInformation;
 using NearExpiredProduct.Data.Extensions;
 using static Google.Rpc.Context.AttributeContext.Types;
+using System.Linq.Dynamic.Core;
 
 namespace NearExpiredProduct.Service.Service
 {
@@ -108,6 +109,7 @@ namespace NearExpiredProduct.Service.Service
             {
                 var cacheData = _cacheService.GetData<PagedResults<CampaignResponse>>("Campaigns");
                 List<CampaignResponse> response = new List<CampaignResponse>();
+                var result =new PagedResults<CampaignResponse>();
                 if (request.ProductName != "")
                 {
                     response = await _unitOfWork.Repository<Campaign>().GetAll().Where(a => EF.Functions.Collate(a.Product.ProductName.ToLower(), "SQL_Latin1_General_CP1_CI_AI").Contains(request.ProductName.ToLower())).Select(a => new CampaignResponse
@@ -157,16 +159,16 @@ namespace NearExpiredProduct.Service.Service
                            }))
                     }).DynamicFilter(filter).ToListAsync();
                 }
-                var sort = PageHelper<CampaignResponse>.Sorting(paging.SortType, response, paging.ColName);
-                var result = PageHelper<CampaignResponse>.Paging(sort, paging.Page, paging.PageSize);
                 if (cacheData == null)
                 {
+                    var sort = PageHelper<CampaignResponse>.Sorting(paging.SortType, response, paging.ColName);
+                    result = PageHelper<CampaignResponse>.Paging(sort, paging.Page, paging.PageSize);
                     var expiryTime = DateTimeOffset.Now.AddMinutes(2);
                     cacheData = result;
                     _cacheService.SetData<PagedResults<CampaignResponse>>("Campaigns", cacheData, expiryTime);
+                    return result;
                 }
-                return result;
-            
+                else return cacheData;
             }
             catch (CrudException ex)
             {
@@ -387,6 +389,7 @@ namespace NearExpiredProduct.Service.Service
         {
             try
             {
+
                 var cacheData = _cacheService.GetData<PagedResults<CampaignResponse>>("CampaignsByStore");
                 var response = await _unitOfWork.Repository<Campaign>().GetAll().Where(a => a.Product.StoreId == storeId).Select(a => new CampaignResponse
                 {
@@ -410,14 +413,15 @@ namespace NearExpiredProduct.Service.Service
 
                       }))
                 }).ToListAsync();
-                var result = PageHelper<CampaignResponse>.Paging(response, paging.Page, paging.PageSize);
                 if (cacheData == null)
                 {
+                    var result = PageHelper<CampaignResponse>.Paging(response, paging.Page, paging.PageSize);
                     var expiryTime = DateTimeOffset.Now.AddMinutes(2);
                     cacheData = result;
                     _cacheService.SetData<PagedResults<CampaignResponse>>("CampaignsByStore", cacheData, expiryTime);
+                    return result;
                 }
-                return result;
+                else return cacheData;
             }
             catch (Exception ex)
             {
@@ -451,14 +455,15 @@ namespace NearExpiredProduct.Service.Service
 
                       }))
                 }).ToListAsync();
-                var result = PageHelper<CampaignResponse>.Paging(response, paging.Page, paging.PageSize);
                 if (cacheData == null)
                 {
+                    var result = PageHelper<CampaignResponse>.Paging(response, paging.Page, paging.PageSize);
                     var expiryTime = DateTimeOffset.Now.AddMinutes(2);
                     cacheData = result;
                     _cacheService.SetData<PagedResults<CampaignResponse>>("CampaignsByCate", cacheData, expiryTime);
+                    return result;
                 }
-                return result;
+                else return cacheData;
             }
             catch (Exception ex)
             {
@@ -707,14 +712,15 @@ namespace NearExpiredProduct.Service.Service
                         }).SingleOrDefaultAsync();
                         list.Add(rs);
                     }
-                var listCampaign = PageHelper<CampaignResponse>.Paging(list, paging.Page, paging.PageSize);
-                    if (cacheData == null)
-                     {
-                         var expiryTime = DateTimeOffset.Now.AddMinutes(2);
-                           cacheData = listCampaign;
-                         _cacheService.SetData<PagedResults<CampaignResponse>>("Campaigns", cacheData, expiryTime);
-                      }
-                return listCampaign;
+                if (cacheData == null)
+                {
+                    var listCampaign = PageHelper<CampaignResponse>.Paging(list, paging.Page, paging.PageSize);
+                    var expiryTime = DateTimeOffset.Now.AddMinutes(2);
+                    cacheData = listCampaign;
+                    _cacheService.SetData<PagedResults<CampaignResponse>>("Campaigns", cacheData, expiryTime);
+                    return listCampaign;
+                }
+                else return cacheData;
                      }
                         catch (Exception ex)
                          {
