@@ -8,39 +8,28 @@ namespace NearExpiredProduct.Service.Helpers
 {
     public class Enum
     {
-        //public enum AreaEnum
-        //{
-        // "Khu A - Khu vực trống đồng" = 1
-        // "Khu B - Khu vực tiện lợi 7Element" = 2
-        // "Khu C - Khu vực thư viện" = 3
-        // "Khu D - Khu vực Passio" = 4
-        //}
-
-        //6h30 - 7h 
-        //9h15-9h45
-        //12h 12h30
-        //2h45- 3h15
-
-        public enum OrderTypeEnum
-        {
-            AtStore = 1,
-            Delivery = 2
-        }
-
-        public enum ProductStatusEnum
+        public enum CampaginStatusEnum
         {
             New = 0,
             Avaliable = 1,
             OutOfStock = 2
         }
-
+        public enum ProductStatusEnum
+        {
+            Avaliable = 1,
+            OutOfStock = 0
+        }
         public enum OrderStatusEnum
         {
             StoreCancel = 0,
-            Cancel = 1,
-            Pending = 2,
-            Assign = 3,
-            Finish = 4
+            Pending = 1,
+            Assign = 2,
+            Finish = 3
+        }
+        public enum PaymentEnum
+        {
+            Pending = 1,
+            Finish = 0
         }
     }
 }

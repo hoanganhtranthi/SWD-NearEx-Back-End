@@ -14,9 +14,11 @@ namespace NearExpiredProduct.Data.Entity
         public string StoreName { get; set; } = null!;
         public string? Address { get; set; }
         public string Phone { get; set; } = null!;
-        public string Password { get; set; } = null!;
         public string? Logo { get; set; }
         public string? Fcmtoken { get; set; }
+        public string? CoordinateString { get; set; }
+        public byte[]? PasswordHash { get; set; }
+        public byte[]? PasswordSalt { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
     }

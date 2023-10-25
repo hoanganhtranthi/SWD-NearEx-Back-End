@@ -12,7 +12,6 @@ namespace NearExpiredProduct.Data.Entity
 
         public int Id { get; set; }
         public string Email { get; set; } = null!;
-        public string Password { get; set; } = null!;
         public string UserName { get; set; } = null!;
         public string Phone { get; set; } = null!;
         public string? Gender { get; set; }
@@ -22,8 +21,11 @@ namespace NearExpiredProduct.Data.Entity
         public string? Fcmtoken { get; set; }
         public string? VerificationToken { get; set; }
         public DateTime? VerifiedAt { get; set; }
-        public string? PasswordResetToken { get; set; }
-        public DateTime? ResetTokenExpires { get; set; }
+        public byte[] PasswordHash { get; set; } = null!;
+        public byte[] PasswordSalt { get; set; } = null!;
+        public string? CoordinateString { get; set; }
+        public string? GoogleId { get; set; }
+        public string? WishList { get; set; }
 
         public virtual ICollection<OrderOfCustomer> OrderOfCustomers { get; set; }
     }

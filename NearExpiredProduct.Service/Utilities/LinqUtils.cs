@@ -60,17 +60,31 @@ namespace NearExpiredProduct.Service.Utilities
                         {
                             // string operate1 = data.ToString().Substring(1);
                             // string operare2 = data.ToString().Substring(data.ToString().Length);
-                            DateTime date = (DateTime)data;
+                            
                             IQueryable<TEntity> source2 = source;
-                            string predicate = property.Name + " >= @0 && " + property.Name + " < @1";
-                            object[] dateRange = new object[2]
+                            string predicate = null;
+                            if (property.Name.Equals("StartDate"))
                             {
+                                predicate = property.Name + " <= @0  &&  EndDate >= @0" ;
+                                DateTime date = DateTime.Today;
+                                object dateRange = (object)date.Date;
+                                date = date.Date;
+                                source = source2.Where<TEntity>(predicate, dateRange);
+                            }
+                            else
+                            {
+                                DateTime date = (DateTime)data;
+                                 predicate = property.Name + " >= @0 && " + property.Name + " =< @1";
+                                object[] dateRange = new object[2]
+                                {
                                 (object) date.Date,
                                 null
-                            };
-                            date = date.Date;
-                            dateRange[1] = date.AddDays(1.0);
-                            source = source2.Where<TEntity>(predicate, dateRange);
+                                };
+                                date = date.Date;
+                                dateRange[1] = date.AddDays(1.0);
+                                source = source2.Where<TEntity>(predicate, dateRange);
+                            }
+                           
                         }
                         else if (property.CustomAttributes.Any(
                                      (Func<CustomAttributeData, bool>)(a => a.AttributeType == typeof(SortAttribute))))

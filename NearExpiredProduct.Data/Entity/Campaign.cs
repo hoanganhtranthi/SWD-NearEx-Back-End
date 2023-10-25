@@ -15,7 +15,7 @@ namespace NearExpiredProduct.Data.Entity
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int? Status { get; set; }
-        public int? Discount { get; set; }
+        public int Quantity { get; set; }
         public DateTime Exp { get; set; }
         public int? ProductId { get; set; }
 

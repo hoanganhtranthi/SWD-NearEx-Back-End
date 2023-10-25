@@ -1,4 +1,5 @@
 ﻿using NearExpiredProduct.Service.Commons;
+using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,5 +22,8 @@ namespace NearExpiredProduct.Service.DTO.Response
         [StringAttribute]
         public string? Logo { get; set; }
         public string Token { get; set; }
+        public byte[]? PasswordHash { get; set; }
+        public byte[]? PasswordSalt { get; set; }
+        public string CoordinateString { get; set; }
     }
 }

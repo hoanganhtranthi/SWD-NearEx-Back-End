@@ -15,5 +15,7 @@ namespace NearExpiredProduct.Service.DTO.Response
         public int Id { get; set; }
         [StringAttribute]
         public string CategoryName { get; set; } = null!;
+        [StringAttribute]
+        public string? CateImg { get; set; }
     }
 }
